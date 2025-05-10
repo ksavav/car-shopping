@@ -277,3 +277,5 @@ E:\Programowanie\CSharp\car-shopping\CarShopping\CarShopping\bin\Debug\net9.0\ru
 E:\Programowanie\CSharp\car-shopping\CarShopping\CarShopping\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.Scripting.resources.dll
 E:\Programowanie\CSharp\car-shopping\CarShopping\CarShopping\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.Scripting.resources.dll
 E:\Programowanie\CSharp\car-shopping\CarShopping\CarShopping\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Scripting.resources.dll
+E:\Programowanie\CSharp\car-shopping\CarShopping\CarShopping\obj\Debug\net9.0\CarShopping.sourcelink.json
+E:\Programowanie\CSharp\car-shopping\CarShopping\CarShopping\bin\Debug\net9.0\Data\SeedUsers.json
