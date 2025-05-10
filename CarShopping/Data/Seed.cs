@@ -21,8 +21,9 @@ public class Seed
 
         foreach (var user in users)
         {
-            Console.WriteLine(user.Name);
-            Console.WriteLine(user.Surname);
+            Console.WriteLine(user.FirstName);
+            Console.WriteLine(user.LastName);
+            user.UserName = user.Email;
             await userManager.CreateAsync(user, "Pa$$w0rd");
         }
     }

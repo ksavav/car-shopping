@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "6IjB+o0i3hk=",
+  "dgSpecHash": "ZAItWq+6wuw=",
   "success": true,
   "projectFilePath": "E:\\Programowanie\\CSharp\\car-shopping\\CarShopping\\CarShopping\\CarShopping.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\xawer\\.nuget\\packages\\automapper\\14.0.0\\automapper.14.0.0.nupkg.sha512",
     "C:\\Users\\xawer\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\xawer\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\xawer\\.nuget\\packages\\humanizer.core.af\\2.14.1\\humanizer.core.af.2.14.1.nupkg.sha512",
