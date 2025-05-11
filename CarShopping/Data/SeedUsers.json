@@ -1,12 +1,12 @@
 ﻿[
   {
-    "UserName": "xd",
-    "Name": "xd",
-    "Surname": "xddd"
+    "Email": "xd@xd.com",
+    "FirstName": "xd",
+    "LastName": "xddd"
   },
   {
-    "UserName": "xd2",
-    "Name": "xd2",
-    "Surname": "xddd2"
+    "Email": "xd2@xd2.com",
+    "FirstName": "xd2",
+    "LastName": "xddd2"
   }
 ]
