@@ -1,13 +1,14 @@
 ﻿using AutoMapper;
 using CarShopping.DTOs;
 using CarShopping.Entities;
+using CarShopping.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace CarShopping.Controllers;
 
-public class AccountController(UserManager<AppUser> userManager, IMapper mapper) : BaseController
+public class AccountController(UserManager<AppUser> userManager, IMapper mapper, ITokenService tokenService) : BaseController
 {
     [HttpPost("login")]
     public async Task<ActionResult<UserDto>> Login(LogionDto loginDto)
@@ -21,7 +22,8 @@ public class AccountController(UserManager<AppUser> userManager, IMapper mapper)
         {
             FirstName = user.FirstName,
             LastName = user.LastName,
-            Email = user.Email
+            Email = user.Email,
+            Token = await tokenService.CreateToken(user)
         };
     }
     
@@ -39,7 +41,8 @@ public class AccountController(UserManager<AppUser> userManager, IMapper mapper)
         {
             FirstName = user.FirstName,
             LastName = user.LastName,
-            Email = user.Email
+            Email = user.Email,
+            Token = await tokenService.CreateToken(user)
         };
     }
     
