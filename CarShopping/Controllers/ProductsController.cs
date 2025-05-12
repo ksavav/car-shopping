@@ -6,19 +6,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CarShopping.Controllers;
 
-public class ProductsController : BaseController
+public class ProductsController(DataContext context) : BaseController
 {
-    private readonly DataContext _context;
-
-    public ProductsController(DataContext context)
-    {
-        _context = context;
-    }
-
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
     {
-        var products = await _context.Products.ToListAsync();
+        var products = await context.Products.ToListAsync();
         
         return Ok(products);
     }
@@ -26,7 +19,7 @@ public class ProductsController : BaseController
     [HttpGet("{name}")]
     public async Task<ActionResult<Product>> GetProductByName(string name)
     {
-        var product = await _context.Products.SingleOrDefaultAsync(x => x.Name == name);
+        var product = await context.Products.SingleOrDefaultAsync(x => x.Name == name);
         if (product == null) return NotFound("Product not found");
         return Ok(product);
     }
@@ -36,13 +29,13 @@ public class ProductsController : BaseController
     public async Task<ActionResult<Product>> CreateProduct(Product product)
     {
         if (await ProductExists(product.Name)) return BadRequest("Product with such name already exists");
-        _context.Products.Add(product);
-        await _context.SaveChangesAsync();
+        context.Products.Add(product);
+        await context.SaveChangesAsync();
         return Ok(product);
     }
 
     private async Task<bool> ProductExists(string name)
     {
-        return await _context.Products.AnyAsync(x => x.Name.ToLower() == name.ToLower());
+        return await context.Products.AnyAsync(x => x.Name.ToLower() == name.ToLower());
     }
 }

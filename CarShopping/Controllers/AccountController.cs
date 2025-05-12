@@ -11,7 +11,7 @@ namespace CarShopping.Controllers;
 public class AccountController(UserManager<AppUser> userManager, IMapper mapper, ITokenService tokenService) : BaseController
 {
     [HttpPost("login")]
-    public async Task<ActionResult<UserDto>> Login(LogionDto loginDto)
+    public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
     {
         var user = await userManager.FindByEmailAsync(loginDto.Email);
         if (user == null || user.Email == null) return Unauthorized("Email or password is incorrect");

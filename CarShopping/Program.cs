@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using System.Text;
 using CarShopping.Data;
 using CarShopping.Entities;
@@ -33,7 +34,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenKey)),
             ValidateIssuer = false,
-            ValidateAudience = false
+            ValidateAudience = false,
+            RoleClaimType = ClaimTypes.Role
         };
     });
 builder.Services.AddScoped<ITokenService, TokenService>();
@@ -41,8 +43,8 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 var app = builder.Build();
 
 app.UseCors(b => b.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-app.UseAuthorization();
 app.UseAuthentication();
+app.UseAuthorization();
 
 
 using var scope = app.Services.CreateScope();
