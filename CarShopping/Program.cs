@@ -19,7 +19,7 @@ builder.Services.AddDbContext<DataContext>(opt =>
 
 builder.Services.AddIdentityCore<AppUser>(opt =>
 {
-    // opt.Password.RequireNonAlphanumeric = false;
+    opt.Password.RequireNonAlphanumeric = false;
 })
     .AddRoles<AppRole>()
     .AddRoleManager<RoleManager<AppRole>>()
@@ -38,6 +38,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             RoleClaimType = ClaimTypes.Role
         };
     });
+
+builder.Services.AddAuthorizationBuilder()
+    .AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
 builder.Services.AddScoped<ITokenService, TokenService>();
 
 var app = builder.Build();

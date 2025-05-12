@@ -7,7 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace CarShopping.Services;
 
-public class TokenService(IConfiguration config, UserManager<AppUser> userManager, RoleManager<AppRole> roleManager) : ITokenService
+public class TokenService(IConfiguration config, UserManager<AppUser> userManager) : ITokenService
 {
     public async Task<string> CreateToken(AppUser user)
     {
