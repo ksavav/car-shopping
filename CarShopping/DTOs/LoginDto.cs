@@ -1,9 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace CarShopping.DTOs;
+﻿namespace CarShopping.DTOs;
 
 public class LoginDto
 {
-    [Required] public string Email { get; set; } = null!;
-    [Required] public string Password { get; set; } = null!;
+    public required string Email { get; set; }
+    public required string Password { get; set; }
 }

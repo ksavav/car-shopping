@@ -4,6 +4,6 @@ namespace CarShopping.Entities;
 
 public class AppUserRole : IdentityUserRole<int>
 {
-    public AppUser User { get; set; } = null!;
-    public AppRole Role { get; set; } = null!;
+    public required AppUser User { get; set; }
+    public required AppRole Role { get; set; }
 }

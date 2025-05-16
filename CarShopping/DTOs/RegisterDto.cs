@@ -1,11 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace CarShopping.DTOs;
+﻿namespace CarShopping.DTOs;
 
 public class RegisterDto
 {
-    [Required] public string FirstName { get; set; } = null!;
-    [Required] public string LastName { get; set; } = null!;
-    [Required] public string Email { get; set; } = null!;
-    [Required] public string Password { get; set; } = null!;
+    public required string FirstName { get; set; }
+    public required string LastName { get; set; }
+    public required string Email { get; set; }
+    public required string Password { get; set; }
 }
