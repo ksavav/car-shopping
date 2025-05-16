@@ -1,4 +1,5 @@
-﻿using CarShopping.Entities;
+﻿using CarShopping.Data;
+using CarShopping.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +9,8 @@ namespace CarShopping.Controllers;
 
 public class AdminController(UserManager<AppUser> userManager) : BaseController
 {
+    
+    
     [Authorize(Policy = "RequireAdminRole")]
     [HttpGet("get-users-with-roles")]
     public async Task<ActionResult> GetUsersWithRoles()

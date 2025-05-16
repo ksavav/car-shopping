@@ -9,6 +9,7 @@ public class DataContext(DbContextOptions options) : IdentityDbContext<AppUser, 
     AppUserRole, IdentityUserLogin<int>, IdentityRoleClaim<int>, IdentityUserToken<int>>(options)
 {
     public DbSet<Product> Products { get; set; }
+    public DbSet<PageContent> Pages { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

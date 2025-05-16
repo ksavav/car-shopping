@@ -51,6 +51,8 @@ public static class ApplicationServiceExtension
 
         services.AddAuthorizationBuilder()
             .AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
+        services.AddAuthorizationBuilder()
+            .AddPolicy("RequireModeratorRole", policy => policy.RequireRole(["Moderator", "Admin"]));
         
         return services;
     }
