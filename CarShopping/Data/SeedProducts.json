@@ -1,0 +1,44 @@
+﻿[
+  {
+    "Name": "test",
+    "RegularPrice": 123,
+    "ActualPrice": 1234,
+    "Quantity": 10,
+    "ProductCode": "1234"
+  },
+  {
+    "Name": "test1",
+    "RegularPrice": 244,
+    "ActualPrice": 2345,
+    "Quantity": 3,
+    "ProductCode": "1235"
+  },
+  {
+    "Name": "test2",
+    "RegularPrice": 345,
+    "ActualPrice": 345,
+    "Quantity": 15,
+    "ProductCode": "1236"
+  },
+  {
+    "Name": "test3",
+    "RegularPrice": 243,
+    "ActualPrice": 12354,
+    "Quantity": 1,
+    "ProductCode": "1237"
+  },
+  {
+    "Name": "test4",
+    "RegularPrice": 234,
+    "ActualPrice": 352,
+    "Quantity": 0,
+    "ProductCode": "1238"
+  },
+  {
+    "Name": "test5",
+    "RegularPrice": 3456,
+    "ActualPrice": 3456,
+    "Quantity": 11,
+    "ProductCode": "1239"
+  }
+]

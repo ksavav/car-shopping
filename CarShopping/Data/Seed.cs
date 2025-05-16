@@ -33,8 +33,6 @@ public class Seed
         
         foreach (var user in users)
         {
-            Console.WriteLine(user.FirstName);
-            Console.WriteLine(user.LastName);
             user.UserName = user.Email;
             await userManager.CreateAsync(user, "Pa$$w0rd");
             await userManager.AddToRoleAsync(user, "Member");
@@ -50,5 +48,35 @@ public class Seed
         
         await userManager.CreateAsync(admin, "Pa$$w0rd");
         await userManager.AddToRoleAsync(admin, "Admin");
+    }
+
+    public static async Task SeedProducts(DataContext context)
+    {
+        if(await context.Products.AnyAsync()) return;
+        var productData = await File.ReadAllTextAsync("Data/SeedProducts.json");
+        var options = new JsonSerializerOptions{PropertyNameCaseInsensitive = true};
+        var products = JsonSerializer.Deserialize<List<Product>>(productData, options);
+        if(products == null) return;
+
+        foreach (var p in products)
+        {
+            context.Products.Add(p);
+        }
+        await context.SaveChangesAsync();
+    }
+    
+    public static async Task SeedPages(DataContext context)
+    {
+        if(await context.Pages.AnyAsync()) return;
+        var pageData = await File.ReadAllTextAsync("Data/SeedPages.json");
+        var options = new JsonSerializerOptions{PropertyNameCaseInsensitive = true};
+        var pages = JsonSerializer.Deserialize<List<PageContent>>(pageData, options);
+        if(pages == null) return;
+
+        foreach (var p in pages)
+        {
+            context.Pages.Add(p);
+        }
+        await context.SaveChangesAsync();
     }
 }

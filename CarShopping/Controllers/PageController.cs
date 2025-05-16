@@ -44,8 +44,14 @@ public class PageController(DataContext context, UserManager<AppUser> userManage
         
         if (page == null) return BadRequest();
         
+        var editor = userManager.GetUserAsync(User).Result;
+        if (editor == null) return Unauthorized();
+        if (editor.Email == null) return Unauthorized();
+
         context.Pages.Update(page);
         page.Content = pageDto.Content;
+        page.LastEdited = DateTime.Now;
+        page.EditedBy = editor.Email;
         await context.SaveChangesAsync();
         
         return Ok(new PageDto
