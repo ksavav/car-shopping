@@ -1,18 +1,19 @@
 import json
-
-with open("data_data.json", mode="r", encoding="utf-8") as products:
+import random
+import math
+with open("SeedProducts.json", mode="r", encoding="utf-8") as products:
     json_file = json.load(products)
 
 new_list = []
 
 for product in json_file:
-    if 'wycof' not in product["Name"].lower():
-        new_list.append(product)
+    if type(product["RegularPrice"]) == str:
+        product["RegularPrice"] = round(random.random() * 1000, 2)
+        product["ActualPrice"] = round(random.random() * 1000, 2)
+        print(product["RegularPrice"])
+        print(product["ActualPrice"])
 
 
-print(f"xd: {len(new_list)}")
-print(f"total {len(json_file)}")
-
-# with open("data_data.json", mode="w", encoding="utf-8") as final:
-#     json.dump(new_list, final)
+with open("data_data.json", mode="w", encoding="utf-8") as final:
+    json.dump(json_file, final)
 
