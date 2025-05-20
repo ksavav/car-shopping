@@ -4,3 +4,14 @@
 .content-container {
   padding-top: var(--nav-height, 60px);
 }
+
+@font-face {
+  font-family: 'Space Grotesk';
+  src: url(./assets/fonts/Space_grotesk/SpaceGrotesk-VariableFont_wght.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  font-family: 'Space Grotesk';
+}

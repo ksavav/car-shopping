@@ -7,16 +7,21 @@ import {
   PLATFORM_ID,
   ViewChild
 } from '@angular/core';
-import {isPlatformBrowser} from "@angular/common";
+import {isPlatformBrowser, NgOptimizedImage} from "@angular/common";
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-nav',
   standalone: true,
-  imports: [],
+  imports: [
+    RouterLink,
+    NgOptimizedImage
+  ],
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.scss'
 })
 export class NavComponent implements OnInit  {
+  logoPath = 'assets/armapol-logo.png';
   isScrolled: boolean = false;
   navbarHeight: number = 0;
   @ViewChild('navbar') navBar!: ElementRef;

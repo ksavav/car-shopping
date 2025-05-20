@@ -6,7 +6,7 @@
     <div class="flex items-center justify-between h-16 transition-all duration-300">
       <!-- Logo -->
       <a href="" class="shrink-0 items-center transition-all duration-300">
-        <img src="assets/armapol-logo.png"
+        <img [src]="logoPath"
              [class.pt-10]="!isScrolled"
              [class.h-8]="isScrolled"
              class=""
@@ -35,7 +35,8 @@
 
       <!-- Icons -->
       <div class="shrink-0 flex items-center gap-2">
-        <button type="button" class="p-1 rounded-full">
+        <!-- User -->
+        <button routerLink="/login" type="button" class="p-1 rounded-full">
           <svg class="w-8 h-8 text-gray-400"
                xmlns="http://www.w3.org/2000/svg"
                fill="none"
@@ -47,24 +48,25 @@
                   d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0 0a9 9 0 0 0 5-1.5 4 4 0 0 0-4-3.5h-2a4 4 0 0 0-4 3.5 9 9 0 0 0 5 1.5Zm3-11a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
           </svg>
         </button>
+        <!-- Cart-->
         <div class="relative py-2">
-        <button type="button" class="p-1 rounded-full">
-          <div class="t-0 absolute top-2 left-5">
-            <p class="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-2 text-xs text-white">
-              2
-            </p>
-          </div>
-          <svg class="w-8 h-8 text-gray-400"
-               xmlns="http://www.w3.org/2000/svg"
-               fill="none"
-               viewBox="0 0 24 24">
-            <path stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
-          </svg>
-        </button>
+          <button type="button" class="p-1 rounded-full">
+            <div class="t-0 absolute top-2 left-5">
+              <p class="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-2 text-xs text-white">
+                2
+              </p>
+            </div>
+            <svg class="w-8 h-8 text-gray-400"
+                 xmlns="http://www.w3.org/2000/svg"
+                 fill="none"
+                 viewBox="0 0 24 24">
+              <path stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+            </svg>
+          </button>
         </div>
       </div>
     </div>
@@ -77,16 +79,16 @@
          [class.py-0]="isScrolled"
          [class.pointer-events-none]="isScrolled">
       <div class="flex gap-6 font-medium">
-        <a href="#" class="text-blue-700 dark:text-blue-500 px-2 py-1">
+        <a routerLink="home" class="text-gray-900 dark:text-white hover:text-blue-700 dark:hover:text-blue-500 px-2 py-1">
           Strona Główna
         </a>
-        <a href="#" class="text-gray-900 dark:text-white hover:text-blue-700 dark:hover:text-blue-500 px-2 py-1">
+        <a routerLink="/catalog" class="text-gray-900 dark:text-white hover:text-blue-700 dark:hover:text-blue-500 px-2 py-1">
           Katalog
         </a>
         <a href="#" class="text-gray-900 dark:text-white hover:text-blue-700 dark:hover:text-blue-500 px-2 py-1">
           VIN
         </a>
-        <a href="#" class="text-gray-900 dark:text-white hover:text-blue-700 dark:hover:text-blue-500 px-2 py-1">
+        <a routerLink="/about" class="text-gray-900 dark:text-white hover:text-blue-700 dark:hover:text-blue-500 px-2 py-1">
           O nas
         </a>
       </div>
