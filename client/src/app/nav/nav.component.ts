@@ -9,13 +9,15 @@ import {
 } from '@angular/core';
 import {isPlatformBrowser, NgOptimizedImage} from "@angular/common";
 import {RouterLink} from '@angular/router';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-nav',
   standalone: true,
   imports: [
     RouterLink,
-    NgOptimizedImage
+    NgOptimizedImage,
+    FormsModule
   ],
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.scss'
@@ -24,11 +26,11 @@ export class NavComponent implements OnInit  {
   logoPath = 'assets/armapol-logo.png';
   isScrolled: boolean = false;
   navbarHeight: number = 0;
+  searchQuery: string = '';
   @ViewChild('navbar') navBar!: ElementRef;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
-  // Hide links when scroll down
   @HostListener('window:scroll', [])
   onWindowScroll() {
     if (typeof(window) !== 'undefined') {
@@ -36,7 +38,6 @@ export class NavComponent implements OnInit  {
     }
   }
 
-  // Change padding when resizing window
   @HostListener('window:resize', ['$event'])
   onResize() {
     this.setNavbarHeight();
@@ -47,7 +48,14 @@ export class NavComponent implements OnInit  {
     this.setNavbarHeight();
   }
 
-  // Set navbar height variable
+  onSearchChange(value: string): void {
+    console.log('Typing:', value);
+  }
+
+  onSearchSubmit(): void {
+    console.log('Search submitted:', this.searchQuery);
+  }
+
   private setNavbarHeight() {
     if (isPlatformBrowser(this.platformId)) {
       setTimeout(() => {
