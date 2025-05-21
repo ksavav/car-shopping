@@ -4,21 +4,21 @@ import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
-import { JwtInterceptor } from './interceptors/jwt.interceptor';
+import { jwtInterceptor } from './interceptors/jwt.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideHttpClient(
-      withInterceptorsFromDi()
+      withInterceptors([jwtInterceptor])
     ),
     provideRouter(routes), 
     provideClientHydration(), 
     provideAnimationsAsync(),
-    { 
-      provide: HTTP_INTERCEPTORS, 
-      useClass: JwtInterceptor, 
-      multi: true 
-    }
+    // { 
+    //   provide: HTTP_INTERCEPTORS, 
+    //   useClass: JwtInterceptor, 
+    //   multi: true 
+    // }
   ]
 };
