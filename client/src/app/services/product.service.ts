@@ -4,7 +4,7 @@ import { AccountService } from './account.service';
 import { map, of, take } from 'rxjs';
 import { User } from '../models/user';
 import { getPaginatedResult, getPaginationHeaders } from './paginationHelper';
-import { UserParams } from '../models/userParams';
+import { ProductParams } from '../models/productParams';
 import { Product } from '../models/product';
 import { environment } from '../../env/environment.development';
 
@@ -15,7 +15,7 @@ export class ProductService {
   baseUrl = environment.apiUrl
   user: User | undefined
   productCache = new Map();
-  userParams: UserParams | undefined
+  productParams: ProductParams | undefined
 
   constructor(private http: HttpClient, private accountService: AccountService) { 
     this.accountService.currentUser$.pipe(take(1)).subscribe({
@@ -27,21 +27,20 @@ export class ProductService {
     })
   }
 
-  getProducts(UserParams: UserParams) {
-    const response = this.productCache.get(Object.values(UserParams).join('-'))
+  getProducts(ProductParams: ProductParams) {
+    const response = this.productCache.get(Object.values(ProductParams).join('-'))
     if (response) return of(response)
 
-    let params = getPaginationHeaders(UserParams.pageNumber, UserParams.pageSize);
+    let params = getPaginationHeaders(ProductParams.pageNumber, ProductParams.pageSize);
 
-    /* TODO
-     * add params from like producer, price range etc
-     */
-
-    // params = params.append('minAge', UserParams.category)
+    params = params.append('category', ProductParams.category)
+    params = params.append('producer', ProductParams.producer)
+    params = params.append('minPrice', ProductParams.minPrice)
+    params = params.append('maxPrice', ProductParams.maxPrice)
 
     return getPaginatedResult<Product[]>(this.baseUrl + 'products', params, this.http).pipe(
       map(response => {
-        this.productCache.set(Object.values(UserParams).join('-'), response)
+        this.productCache.set(Object.values(ProductParams).join('-'), response)
         return response
       })
     )
