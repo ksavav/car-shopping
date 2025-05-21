@@ -5,7 +5,7 @@
     <!-- First Row (always visible) -->
     <div class="flex items-center justify-between h-16 transition-all duration-300">
       <!-- Logo -->
-      <a href="" class="shrink-0 items-center transition-all duration-300">
+      <a href="" class="shrink-0 hidden md:block items-center transition-all duration-300">
         <img [src]="logoPath"
              [class.pt-10]="!isScrolled"
              [class.h-8]="isScrolled"
@@ -13,7 +13,7 @@
       </a>
 
       <!-- Search Bar (always visible and centered) -->
-      <div class="absolute left-1/2 transform -translate-x-1/2 w-full max-w-md px-4">
+      <div class="absolute left-1/2 transform -translate-x-1/2 w-full max-w-md mx-4">
         <div class="relative w-full">
           <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
             <svg class="w-4 h-4 text-gray-500 dark:text-gray-400"

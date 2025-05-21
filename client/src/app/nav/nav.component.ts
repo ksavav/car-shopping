@@ -8,15 +8,15 @@ import {
   ViewChild
 } from '@angular/core';
 import {isPlatformBrowser, NgOptimizedImage} from "@angular/common";
-import {RouterLink} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {FormsModule} from '@angular/forms';
+import { AccountService } from '../services/account.service';
 
 @Component({
   selector: 'app-nav',
   standalone: true,
   imports: [
     RouterLink,
-    NgOptimizedImage,
     FormsModule
   ],
   templateUrl: './nav.component.html',
@@ -27,9 +27,27 @@ export class NavComponent implements OnInit  {
   isScrolled: boolean = false;
   navbarHeight: number = 0;
   searchQuery: string = '';
+  model: any = {};
   @ViewChild('navbar') navBar!: ElementRef;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(public accountService: AccountService, private router: Router, @Inject(PLATFORM_ID) private platformId: Object) {}
+
+  ngOnInit() {
+    this.onWindowScroll();
+    this.setNavbarHeight();
+  }
+
+
+  login() {
+    this.accountService.login(this.model).subscribe({
+      next: _ => this.router.navigateByUrl('/members')
+    })
+  }
+
+  logout() {
+    this.accountService.logout();
+    this.router.navigateByUrl('/');
+  }
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
@@ -40,11 +58,6 @@ export class NavComponent implements OnInit  {
 
   @HostListener('window:resize', ['$event'])
   onResize() {
-    this.setNavbarHeight();
-  }
-
-  ngOnInit() {
-    this.onWindowScroll();
     this.setNavbarHeight();
   }
 
