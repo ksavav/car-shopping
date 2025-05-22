@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../env/environment.development';
-import { BehaviorSubject, map } from 'rxjs';
+import { async, BehaviorSubject, map } from 'rxjs';
 import { User } from '../models/user';
 import { HttpClient } from '@angular/common/http';
 
@@ -13,7 +13,6 @@ export class AccountService {
   currentUser$ = this.currentUserSource.asObservable();
 
   constructor(private http: HttpClient) { }
-
 
   login(model: any) {
     return this.http.post<User>(this.baseUrl + 'account/login', model).pipe(
