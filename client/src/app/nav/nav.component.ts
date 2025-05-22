@@ -1,15 +1,7 @@
-import {
-  Component,
-  ElementRef,
-  HostListener,
-  Inject,
-  OnInit,
-  PLATFORM_ID,
-  ViewChild
-} from '@angular/core';
-import {isPlatformBrowser, NgOptimizedImage} from "@angular/common";
-import {Router, RouterLink} from '@angular/router';
-import {FormsModule} from '@angular/forms';
+import { Component, ElementRef, HostListener, Inject, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
+import { isPlatformBrowser } from "@angular/common";
+import { Router, RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { AccountService } from '../services/account.service';
 
 @Component({
@@ -28,6 +20,8 @@ export class NavComponent implements OnInit  {
   navbarHeight: number = 0;
   searchQuery: string = '';
   model: any = {};
+  showSettings: boolean = false
+
   @ViewChild('navbar') navBar!: ElementRef;
 
   constructor(public accountService: AccountService, private router: Router, @Inject(PLATFORM_ID) private platformId: Object) {}
@@ -37,6 +31,11 @@ export class NavComponent implements OnInit  {
     this.setNavbarHeight();
   }
 
+  showAccountSettings() {
+    this.showSettings = !this.showSettings
+    console.log(this.showSettings)
+    console.log(this.accountService.currentUser$)
+  }
 
   login() {
     this.accountService.login(this.model).subscribe({
