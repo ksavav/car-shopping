@@ -62,8 +62,23 @@ public class PageController(DataContext context, UserManager<AppUser> userManage
         });
     }
 
-    [HttpGet("{pageName}+{section}")]
-    public async Task<ActionResult<PageDto>> GetPage(string pageName, string section)
+    [Authorize(Policy = "RequireModeratorRole")]
+    [HttpDelete("del-page/{pageName}/{section}")]
+    public async Task<ActionResult> DeletePageSection(string pageName, string section)
+    {
+        var page = await context.Pages.Select(x => x)
+            .Where(x => x.Section == section && x.Page == pageName)
+            .FirstOrDefaultAsync();
+        if (page == null) return NotFound();
+
+        context.Pages.Remove(page);
+        await context.SaveChangesAsync();
+        
+        return Ok();
+    }
+
+    [HttpGet("{pageName}/{section}")]
+    public async Task<ActionResult<PageDto>> GetPageSection(string pageName, string section)
     {
         var page = await context.Pages.Select(x => x)
             .Where(x => x.Section == section && x.Page == pageName)
@@ -76,6 +91,29 @@ public class PageController(DataContext context, UserManager<AppUser> userManage
             Section = page.Section,
             Content = page.Content,
         });
+    }
+
+    [HttpGet("{pageName}")]
+    public async Task<ActionResult<IEnumerable<PageDto>>> GetPage(string pageName)
+    {
+        var page = await context.Pages.Select(x => x)
+            .Where(x => x.Page == pageName)
+            .ToListAsync();
+        if (page == null) return BadRequest();
+
+        var pageList = new List<PageDto>();
+
+        foreach (var section in page)
+        {
+            pageList.Add(new PageDto
+            {
+                Page = section.Page,
+                Section = section.Section,
+                Content = section.Content,
+            });
+        }
+
+        return Ok(pageList);
     }
     
     [HttpGet]

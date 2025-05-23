@@ -48,4 +48,6 @@ export class DropdownComponent implements OnInit {
   logout(): void {
       this.accountService.logout();
   }
+
+  
 }

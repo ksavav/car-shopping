@@ -1,20 +1,49 @@
 <div @dropdownAnimation class="relative mt-8 inline-block text-left transition ease-out duration-100 transform scale-100 opacity-100">
     @if (this.accountService.currentUser$ | async)
     {
-    <div class="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-hidden" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
-      <div class="py-1" role="none">
+    <div class="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 dark:divide-gray-700 rounded-md shadow-lg ring-1 ring-black/5 focus:outline-hidden dark:bg-gray-800" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+      <div class="py-1">
         <!-- Active: "bg-gray-100 text-gray-900 outline-hidden", Not Active: "text-gray-700" -->
-        <a class="block px-4 py-2 text-sm text-gray-700">Witaj, {{ (this.accountService.currentUser$ | async)?.firstName }}</a>
+        <a class="block px-4 py-2 text-sm text-gray-700 dark:text-white">Witaj, {{ (this.accountService.currentUser$ | async)?.firstName }}</a>
       </div>
-      <div class="py-1" role="none">
-        <a href="#" class="block px-4 py-2 text-sm text-gray-700">Archive</a>
-        <a href="#" class="block px-4 py-2 text-sm text-gray-700">Move</a>
+      <div class="py-1">
+        <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-white lg:grid lg:grid-cols-4">
+          <span>
+            <svg class="w-6 h-6 text-gray-400 dark:text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path fill="bg-sky-100" d="M12 3c2.631 0 4 1.977 4 5 0 1.542-.528 2.914-1.389 3.828.278.995 1.11 1.718 2.547 2.198 2.174.724 3.471 2.207 3.835 4.392a.5.5 0 0 1-.245.516C18.334 20.314 15.416 21 12 21c-3.416 0-6.334-.687-8.748-2.066a.5.5 0 0 1-.245-.516c.364-2.185 1.661-3.668 3.835-4.392 1.438-.48 2.269-1.203 2.55-2.198C8.528 10.914 8 9.542 8 8c0-3.023 1.369-5 4-5zm1.784 9.501l-.152.086A3.414 3.414 0 0 1 12 13c-.65 0-1.254-.18-1.784-.5-.465 1.123-1.498 1.954-3.058 2.474-1.708.57-2.725 1.643-3.097 3.265C6.254 19.41 8.898 20 12 20c3.102 0 5.746-.589 7.94-1.761-.373-1.622-1.39-2.695-3.098-3.265-1.56-.52-2.593-1.35-3.058-2.473zM12 4c-1.984 0-3 1.468-3 4 0 2.273 1.328 4 3 4s3-1.727 3-4c0-2.532-1.016-4-3-4z"></path>
+            </svg>
+          </span>
+          <p class="col-span-3">Twoje konto</p>
+        </a>
+        <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-white lg:grid lg:grid-cols-4">
+          <span>
+            <svg class="w-6 h-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path fill="black dark:white" d="M8 3c0-.487.36-1 .938-1h6.124c.579 0 .938.513.938 1h2.5A1.5 1.5 0 0 1 20 4.5v16a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 20.5v-16A1.5 1.5 0 0 1 5.5 3H8zm7 0H9v2h6V3zM5.5 4a.5.5 0 0 0-.5.5v16a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-16a.5.5 0 0 0-.5-.5H16v1c0 .487-.36 1-.938 1H8.939C8.358 6 8 5.487 8 5V4H5.5zM7 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5z"></path>
+            </svg>
+          </span>
+          <p class="col-span-3">Zamówienia</p>
+        </a>
+        <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-white lg:grid lg:grid-cols-4">
+          <span>
+            <svg class="w-6 h-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path fill="black dark:white" d="M12.5 11.941l2.882-1.441L12.5 9.059 9.618 10.5l2.882 1.441zM8 10.5c0-.178.092-.355.276-.447l4-2a.5.5 0 0 1 .448 0l4 2A.495.495 0 0 1 17 10.5V15a.5.5 0 0 1-.276.447l-4 2a.496.496 0 0 1-.448 0l-4-2A.5.5 0 0 1 8 15v-4.5zm5 2.309v3.382l3-1.5v-3.382l-3 1.5zm-4-1.5v3.382l3 1.5v-3.382l-3-1.5z"></path>
+              <path fill="black dark:white" d="M4.418 5.507l3-.5a.5.5 0 0 1 .546.679l-1 2.5a.5.5 0 0 1-.818.168l-.659-.66A8.5 8.5 0 1 0 12.5 4a.5.5 0 0 1 0-1 9.5 9.5 0 1 1-7.73 3.977l-.624-.623a.5.5 0 0 1 .272-.847z"></path>
+            </svg>
+          </span>
+          <p class="col-span-3">Zwroty i reklamacje</p>
+        </a>
       </div>
-      <div class="py-1" role="none">
-        <a href="#" class="block px-4 py-2 text-sm text-gray-700">Share</a>
-        <a href="#" class="block px-4 py-2 text-sm text-gray-700">Add to favorites</a>
+      <div class="py-1">
+        <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-white lg:grid lg:grid-cols-4">
+          <span>
+            <svg class="w-6 h-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path fill="fill-color" d="M5 12C5 6.477 9.477 2 15 2c1.325 0 2.591.258 3.75.727a.5.5 0 0 1 0 .927 9.003 9.003 0 0 0 0 16.692.5.5 0 0 1 0 .927A9.972 9.972 0 0 1 15 22C9.477 22 5 17.523 5 12zm10-9a9 9 0 1 0 2.23 17.722A9.997 9.997 0 0 1 12.125 12a9.997 9.997 0 0 1 5.105-8.722A9.018 9.018 0 0 0 15 3z"></path>
+            </svg>
+          </span>
+          <p class="col-span-3">Tryb Ciemny</p>
+        </a>
       </div>
-      <div class="py-1 bg-red-100 rounded-md" role="none">
+      <div class="py-1 bg-red-100 rounded-md">
         <button>
           <a (click)="logout()" class="block px-4 py-2 text-sm text-gray-700">Wyloguj się</a>
         </button>
@@ -24,18 +53,18 @@
     @if (!(this.accountService.currentUser$ | async))
     {
     <form [formGroup]="loginFormGroup" (ngSubmit)="login()" autocomplete="off">
-        <div class="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-hidden" aria-orientation="vertical" aria-labelledby="menu-button">
-            <div class="py-1" role="none">
-                <label for="first_name" class="block px-4 py-2 text-sm text-gray-700">Email</label>
-                <div class="flex mt-2 items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-indigo-600">
-                    <input type="text" class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" formControlName="email" placeholder="example@example.com"/>
+        <div class="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black/5 focus:outline-hidden bg-white dark:bg-gray-800" aria-orientation="vertical" aria-labelledby="menu-button">
+            <div class="py-1" >
+                <label for="first_name" class="block px-4 py-2 text-sm text-gray-700 dark:text-white">Email</label>
+                <div class="flex mt-2 items-center rounded-md bg-white dark:bg-gray-600 pl-3 outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-indigo-600">
+                    <input type="text" class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 dark:text-white placeholder:text-gray-400 focus:outline-none sm:text-sm/6" formControlName="email" placeholder="example@example.com"/>
                 </div>
-                <label for="first_name" class="block px-4 py-2 text-sm text-gray-700">Hasło</label>
-                <div class="flex mt-2 items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-indigo-600">
-                    <input type="password" class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" formControlName="password" placeholder="hasło"/>
+                <label for="first_name" class="block px-4 py-2 text-sm text-gray-700 dark:text-white">Hasło</label>
+                <div class="flex mt-2 items-center rounded-md bg-white dark:bg-gray-600 pl-3 outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-indigo-600">
+                    <input type="password" class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 dark:text-white placeholder:text-gray-400 focus:outline-none sm:text-sm/6" formControlName="password" placeholder="hasło"/>
                 </div>
             </div>
-            <div class="py-1 bg-blue-100 rounded-md" role="none">
+            <div class="py-1 bg-blue-100 rounded-md">
                 <button type="submit">
                     <a class="block px-4 py-2 text-sm text-gray-700">Zaloguj się</a>
                 </button>

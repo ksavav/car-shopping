@@ -9,8 +9,6 @@ namespace CarShopping.Controllers;
 
 public class AdminController(UserManager<AppUser> userManager) : BaseController
 {
-    
-    
     [Authorize(Policy = "RequireAdminRole")]
     [HttpGet("get-users-with-roles")]
     public async Task<ActionResult> GetUsersWithRoles()

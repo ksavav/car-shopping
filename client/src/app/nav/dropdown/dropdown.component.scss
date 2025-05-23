@@ -1,0 +1,8 @@
+@import "tailwindcss";
+
+path {
+    fill: black;
+    @variant dark {
+        fill: white;
+    }
+}
