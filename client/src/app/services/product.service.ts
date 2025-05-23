@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { AccountService } from './account.service';
 import { map, of, take } from 'rxjs';
 import { User } from '../models/user';
-import { getPaginatedResult, getPaginationHeaders } from './paginationHelper';
+import { getPaginatedResult, getPaginationHeaders } from '../utils/paginationHelper';
 import { ProductParams } from '../models/productParams';
 import { Product } from '../models/product';
 import { environment } from '../../env/environment.development';
