@@ -1,0 +1,46 @@
+<div @dropdownAnimation class="relative mt-8 inline-block text-left transition ease-out duration-100 transform scale-100 opacity-100">
+    @if (this.accountService.currentUser$ | async)
+    {
+    <div class="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-hidden" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+      <div class="py-1" role="none">
+        <!-- Active: "bg-gray-100 text-gray-900 outline-hidden", Not Active: "text-gray-700" -->
+        <a class="block px-4 py-2 text-sm text-gray-700">Witaj, {{ (this.accountService.currentUser$ | async)?.firstName }}</a>
+      </div>
+      <div class="py-1" role="none">
+        <a href="#" class="block px-4 py-2 text-sm text-gray-700">Archive</a>
+        <a href="#" class="block px-4 py-2 text-sm text-gray-700">Move</a>
+      </div>
+      <div class="py-1" role="none">
+        <a href="#" class="block px-4 py-2 text-sm text-gray-700">Share</a>
+        <a href="#" class="block px-4 py-2 text-sm text-gray-700">Add to favorites</a>
+      </div>
+      <div class="py-1 bg-red-100 rounded-md" role="none">
+        <button>
+          <a (click)="logout()" class="block px-4 py-2 text-sm text-gray-700">Wyloguj się</a>
+        </button>
+      </div>
+    </div>
+    }
+    @if (!(this.accountService.currentUser$ | async))
+    {
+    <form [formGroup]="loginFormGroup" (ngSubmit)="login()" autocomplete="off">
+        <div class="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-hidden" aria-orientation="vertical" aria-labelledby="menu-button">
+            <div class="py-1" role="none">
+                <label for="first_name" class="block px-4 py-2 text-sm text-gray-700">Email</label>
+                <div class="flex mt-2 items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-indigo-600">
+                    <input type="text" class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" formControlName="email" placeholder="example@example.com"/>
+                </div>
+                <label for="first_name" class="block px-4 py-2 text-sm text-gray-700">Hasło</label>
+                <div class="flex mt-2 items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-indigo-600">
+                    <input type="password" class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6" formControlName="password" placeholder="hasło"/>
+                </div>
+            </div>
+            <div class="py-1 bg-blue-100 rounded-md" role="none">
+                <button type="submit">
+                    <a class="block px-4 py-2 text-sm text-gray-700">Zaloguj się</a>
+                </button>
+            </div>
+        </div>
+    </form>
+    }
+</div>
