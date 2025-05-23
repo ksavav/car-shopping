@@ -1,5 +1,6 @@
 ﻿using CarShopping.Data;
 using CarShopping.Entities;
+using CarShopping.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,16 +10,42 @@ namespace CarShopping.Controllers;
 public class ProductsController(DataContext context) : BaseController
 {
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
+    public async Task<ActionResult<IEnumerable<Product>>> GetProducts([FromQuery]QueryParams queryParams)
     {
-        var products = await context.Products.ToListAsync();
+        var query = context.Products.AsQueryable();
+
+        if (queryParams.Category != null)
+        {
+            query = query.Where(p => p.Category == queryParams.Category);
+        }
+        if (queryParams.Producer != null)
+        {
+            query = query.Where(p => p.Producer == queryParams.Producer);
+        }
+
+        query = query.Where(p =>
+            p.ActualPrice >= queryParams.minPrice &&
+            p.ActualPrice <= queryParams.maxPrice
+        );
+
+        query = queryParams.OrderBy switch
+        {
+            "descending" => query.OrderByDescending(p => p.ActualPrice),
+            "ascending" => query.OrderBy(p => p.ActualPrice),
+            _ => query.OrderBy(p => p.ActualPrice)
+        };
+
+        var skipNumber = (queryParams.PageNumber - 1) * queryParams.PageSize;
+
+        var products = await query.Skip(skipNumber).Take(queryParams.PageSize).ToListAsync();
+
         return Ok(products);
     }
     
-    [HttpGet("{name}")]
-    public async Task<ActionResult<Product>> GetProductByName(string name)
+    [HttpGet("{productId}")]
+    public async Task<ActionResult<Product>> GetProductByProductId(string productId)
     {
-        var product = await context.Products.SingleOrDefaultAsync(x => x.Name == name);
+        var product = await context.Products.SingleOrDefaultAsync(x => x.ProductId == productId);
         if (product == null) return NotFound("Product not found");
         return Ok(product);
     }
@@ -61,10 +88,10 @@ public class ProductsController(DataContext context) : BaseController
     }
 
     [Authorize(Policy = "RequireAdminRole")]
-    [HttpDelete("delete/{productCode}")]
-    public async Task<ActionResult<Product>> DeleteProduct(string productCode)
+    [HttpDelete("delete/{productId}")]
+    public async Task<ActionResult<Product>> DeleteProduct(string productId)
     {
-        var productToDelete = await GetProduct(productCode);
+        var productToDelete = await GetProduct(productId);
         if (productToDelete == null) return BadRequest("Product with such does not exist");
 
         context.Products.Remove(productToDelete);
@@ -72,14 +99,14 @@ public class ProductsController(DataContext context) : BaseController
         return Ok(productToDelete); 
     }
     
-    private async Task<bool> ProductExists(string productCode)
+    private async Task<bool> ProductExists(string productId)
     {
-        return await context.Products.AnyAsync(x => x.ProductCode.ToLower() == productCode.ToLower());
+        return await context.Products.AnyAsync(x => x.ProductId.ToLower() == productId.ToLower());
     }
 
-    private async Task<Product?> GetProduct(string productCode)
+    private async Task<Product?> GetProduct(string productId)
     {
-        var product = await context.Products.SingleOrDefaultAsync(x => x.ProductCode.ToLower() == productCode.ToLower());
+        var product = await context.Products.SingleOrDefaultAsync(x => x.ProductId.ToLower() == productId.ToLower());
         
         return product;
     }
