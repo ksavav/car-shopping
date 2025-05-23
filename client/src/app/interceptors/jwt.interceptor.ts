@@ -25,7 +25,14 @@ import { Observable, switchMap, take } from "rxjs";
 //   }
 // }
 
+// const excludedUrls = ['account/login', 'account/register'];
+
 export function jwtInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn) {
+  // const isExcluded = excludedUrls.some(url => req.url.includes(url));
+  // if (isExcluded) {
+  //   return next(req);
+  // }
+
   const accountService = inject(AccountService);
   return accountService.currentUser$.pipe(
     take(1),
