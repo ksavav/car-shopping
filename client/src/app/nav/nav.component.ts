@@ -3,13 +3,27 @@ import { isPlatformBrowser } from "@angular/common";
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AccountService } from '../services/account.service';
+import { CommonModule } from '@angular/common';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-nav',
   standalone: true,
   imports: [
     RouterLink,
-    FormsModule
+    FormsModule,
+    CommonModule
+  ],
+  animations: [
+    trigger('dropdownAnimation', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'scale(0.95)' }),
+        animate('100ms ease-out', style({ opacity: 1, transform: 'scale(1)' })),
+      ]),
+      transition(':leave', [
+        animate('75ms ease-in', style({ opacity: 0, transform: 'scale(0.95)' })),
+      ]),
+    ])
   ],
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.scss'
@@ -21,10 +35,9 @@ export class NavComponent implements OnInit  {
   searchQuery: string = '';
   model: any = {};
   showSettings: boolean = false
-
   @ViewChild('navbar') navBar!: ElementRef;
 
-  constructor(public accountService: AccountService, private router: Router, @Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(public accountService: AccountService, private router: Router, @Inject(PLATFORM_ID) private platformId: Object, private refelem: ElementRef) { }
 
   ngOnInit() {
     this.onWindowScroll();
@@ -33,8 +46,6 @@ export class NavComponent implements OnInit  {
 
   showAccountSettings() {
     this.showSettings = !this.showSettings
-    console.log(this.showSettings)
-    console.log(this.accountService.currentUser$)
   }
 
   login() {
@@ -58,6 +69,13 @@ export class NavComponent implements OnInit  {
   @HostListener('window:resize', ['$event'])
   onResize() {
     this.setNavbarHeight();
+  }
+
+  @HostListener('document:click', ['$event'])
+  handleClickOutside(event: MouseEvent) {
+    if (!this.refelem.nativeElement.contains(event.target)) {
+      this.showSettings = false;
+    }
   }
 
   onSearchChange(value: string): void {

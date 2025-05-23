@@ -48,8 +48,9 @@
          * Add information with link if user is not logged in
          * Add first and last name if user is logged in 
         -->
-        <div>
-          <button (click)="showAccountSettings()" type="button" class="p-1 rounded-full"> <!--  routerLink="/login" -->
+        <div class="flex">
+          <button (click)="showAccountSettings()" class="flex items-center gap-2 p-1 rounded-full"> <!--  routerLink="/login" -->
+            <span class="text-white-600 text-sm">Zaloguj się</span>
             <svg class="w-8 h-8 text-gray-400"
                  xmlns="http://www.w3.org/2000/svg"
                  fill="none"
@@ -63,23 +64,13 @@
           </button>
           @if (showSettings)
           {
-          <div class="relative inline-block text-left">        
-            <!--
-              Dropdown menu, show/hide based on menu state.
-          
-              Entering: "transition ease-out duration-100"
-                From: "transform opacity-0 scale-95"
-                To: "transform opacity-100 scale-100"
-              Leaving: "transition ease-in duration-75"
-                From: "transform opacity-100 scale-100"
-                To: "transform opacity-0 scale-95"
-            -->
-            @if (this.accountService.currentUser$)
+          <div @dropdownAnimation class="relative mt-8 inline-block text-left transition ease-out duration-100 transform scale-100 opacity-100">
+            @if (this.accountService.currentUser$ | async)
             {
             <div class="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-hidden" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
               <div class="py-1" role="none">
                 <!-- Active: "bg-gray-100 text-gray-900 outline-hidden", Not Active: "text-gray-700" -->
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="menu-item-0">LOGGED IN</a>
+                <a class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="menu-item-0">LOGGED IN</a>
                 <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="menu-item-1">Duplicate</a>
               </div>
               <div class="py-1" role="none">
@@ -95,12 +86,12 @@
               </div>
             </div>
             }
-            @if (!this.accountService.currentUser$)
+            @if (!(this.accountService.currentUser$ | async))
             {
               <div class="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-hidden" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
               <div class="py-1" role="none">
                 <!-- Active: "bg-gray-100 text-gray-900 outline-hidden", Not Active: "text-gray-700" -->
-                <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="menu-item-0">NOT LOGGED IN</a>
+                <a class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="menu-item-0">NOT LOGGED IN</a>
                 <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="menu-item-1">Duplicate</a>
               </div>
               <div class="py-1" role="none">
@@ -172,4 +163,4 @@
     </div>
   </div>
 </nav>
-<div class="content-container bg-gray-100"></div>
+<div class="content-container"></div>
