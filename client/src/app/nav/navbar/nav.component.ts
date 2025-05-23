@@ -1,15 +1,20 @@
 import { Component, ElementRef, HostListener, Inject, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { isPlatformBrowser } from "@angular/common";
 import { Router, RouterLink } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { AccountService } from '../services/account.service';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AccountService } from '../../services/account.service';
+import { CommonModule } from '@angular/common';
+import { animate, style, transition, trigger } from '@angular/animations';
+import { DropdownComponent } from "../dropdown/dropdown.component";
 
 @Component({
   selector: 'app-nav',
   standalone: true,
   imports: [
     RouterLink,
-    FormsModule
+    FormsModule,
+    CommonModule,
+    DropdownComponent
   ],
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.scss'
@@ -21,10 +26,9 @@ export class NavComponent implements OnInit  {
   searchQuery: string = '';
   model: any = {};
   showSettings: boolean = false
-
   @ViewChild('navbar') navBar!: ElementRef;
 
-  constructor(public accountService: AccountService, private router: Router, @Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(private fb: FormBuilder, public accountService: AccountService, private router: Router, @Inject(PLATFORM_ID) private platformId: Object, private refelem: ElementRef) { }
 
   ngOnInit() {
     this.onWindowScroll();
@@ -33,19 +37,6 @@ export class NavComponent implements OnInit  {
 
   showAccountSettings() {
     this.showSettings = !this.showSettings
-    console.log(this.showSettings)
-    console.log(this.accountService.currentUser$)
-  }
-
-  login() {
-    this.accountService.login(this.model).subscribe({
-      next: _ => this.router.navigateByUrl('/members')
-    })
-  }
-
-  logout() {
-    this.accountService.logout();
-    this.router.navigateByUrl('/');
   }
 
   @HostListener('window:scroll', [])
@@ -58,6 +49,13 @@ export class NavComponent implements OnInit  {
   @HostListener('window:resize', ['$event'])
   onResize() {
     this.setNavbarHeight();
+  }
+
+  @HostListener('document:click', ['$event'])
+  handleClickOutside(event: MouseEvent) {
+    if (!this.refelem.nativeElement.contains(event.target)) {
+      this.showSettings = false;
+    }
   }
 
   onSearchChange(value: string): void {

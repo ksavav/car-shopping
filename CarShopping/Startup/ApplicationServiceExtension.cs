@@ -14,6 +14,15 @@ public static class ApplicationServiceExtension
 {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddCors(options =>
+        {
+            options.AddPolicy("AllowAngularApp",policy =>
+            {
+                policy.WithOrigins("http://localhost:4200")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+            });
+        });
         services.AddControllers();
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         services.AddDbContext<DataContext>(opt =>
@@ -21,7 +30,7 @@ public static class ApplicationServiceExtension
             opt.UseSqlite(configuration.GetConnectionString("DefaultConnection"));
         });
         services.AddScoped<ITokenService, TokenService>();
-        
+
         return services;
     }
 

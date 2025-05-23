@@ -12,8 +12,8 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'catalog', component: CatalogComponent },
   { path: 'about', component: AboutComponent },
-  // { path: 'products/product/:id', component:  },
-  // { path: 'products/edit/:id', component:  },
-  // { path: 'user/:id', component:  },
+  // { path: 'catalog/product/:id', component:  },
+  // { path: 'catalog/edit/:id', component:  },
+  // { path: 'profile', component:  },
   // { path: 'vin', component:  }
 ];
