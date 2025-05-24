@@ -4,11 +4,12 @@ import {NavComponent} from "./nav/navbar/nav.component";
 import { User } from './models/user';
 import { AccountService } from './services/account.service';
 import { isPlatformBrowser } from '@angular/common';
+import { FooterComponent } from "./footer/footer.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavComponent],
+  imports: [RouterOutlet, NavComponent, FooterComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

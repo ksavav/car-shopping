@@ -11,19 +11,21 @@ import { CommonModule } from '@angular/common';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit {
-  pageSections: Page[] = [];
+  pageSections: { [key: string]: string } = {};
 
   constructor(private pageService: PageService) {}
 
   ngOnInit(): void {
     this.pageService.getPage('home').subscribe({
       next: (data: Page[]) => {
-        this.pageSections = data;
-        console.log(this.pageSections)
+        let response = data;
+        this.pageSections = Object.fromEntries(response.map(x => [x.section, x.content]));
       },
       error: (err) => {
         console.error('Error fetching pages:', err);
       }
     });
   }
+
+  
 }

@@ -66,6 +66,10 @@ export class NavComponent implements OnInit  {
     console.log('Search submitted:', this.searchQuery);
   }
 
+  hideSettingsMode(event: boolean): void {
+    this.showSettings = false;
+  }
+
   private setNavbarHeight() {
     if (isPlatformBrowser(this.platformId)) {
       setTimeout(() => {

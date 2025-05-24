@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AccountService } from '../../services/account.service';
 import { CommonModule } from '@angular/common';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dropdown',
@@ -26,9 +27,11 @@ import { animate, style, transition, trigger } from '@angular/animations';
   styleUrl: './dropdown.component.scss'
 })
 export class DropdownComponent implements OnInit {
+  @Output() showSettings = new EventEmitter<boolean>();
+
   loginFormGroup!: FormGroup;
   
-  constructor(private fb: FormBuilder, public accountService: AccountService) { }
+  constructor(private fb: FormBuilder, private router: Router, public accountService: AccountService) { }
 
   ngOnInit(): void {
     this.loginFormGroup = this.fb.group({
@@ -38,16 +41,16 @@ export class DropdownComponent implements OnInit {
   }
 
   login(): void {
-    console.log("xd")
     if (this.loginFormGroup.valid) {
-      console.log(this.loginFormGroup.value)
-      this.accountService.login(this.loginFormGroup.value).subscribe()  
+      this.accountService.login(this.loginFormGroup.value).subscribe(
+        () => this.showSettings.emit(false)
+      )
     }
   }
 
   logout(): void {
       this.accountService.logout();
-  }
-
-  
+      this.router.navigateByUrl('/home');
+      this.showSettings.emit(false);
+  } 
 }

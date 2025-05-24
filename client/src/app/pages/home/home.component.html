@@ -1,9 +1,24 @@
 <section class="bg-white dark:bg-gray-800">
+    <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-12">
+        <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">Zapoznaj się z naszą ofertą!</h1>
+        <p class="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">Kliknij przycisk poniżej, aby przejść do katalogu, lub wyszukaj interesujący cię produkt za pomocą wyszukiwarki na pasku nawigacyjnym.</p>
+        <!-- <div class="flex flex-col mb-8 lg:mb-16 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
+        </div> -->
+        <div class="px-4 mx-auto text-center md:max-w-screen-md lg:max-w-screen-lg lg:px-36">
+            <a href="/catalog" type="button" class="text-xl font-semibold text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+              Katalog
+            </a>
+            <div class="flex flex-wrap justify-center items-center mt-8 text-gray-500 sm:justify-between">
+            </div>
+        </div> 
+    </div>
+</section>
+<section class="bg-white dark:bg-gray-900">
   <div class="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
     <div class="font-light text-gray-500 sm:text-lg dark:text-gray-400">
-      <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Czym się zajmujemy?</h2>
-      <p class="mb-4">ARMAPOL jest firmą handlową, działającą w branży motoryzacyjnej nieprzerwanie od 1991 roku. Jesteśmy interdyscyplinarnym zespołem kreatywnych ludzi, posiadających duże doświadczenie w imporcie i dystrybucji części samochodowych. Prowadzimy sprzedaż w oparciu o sprawdzonych zagranicznych i krajowych producentów i dostawców części samochodowych do pojazdów osobowych i dostawczych wszystkich marek. Posiadamy w naszej ofercie sprzedaży ponad 30.000 pozycji dostępnych “od ręki”.</p>
-      <p>Armapol jest wyłącznym dystrybutorem markowych części samochodowych QAP - Quality Auto Parts.</p>
+      <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white" id="header1">{{ pageSections["header1"] }}</h2>
+      <p class="mb-4">{{ pageSections["body1p1"] }}</p>
+      <p class="mb-4">{{ pageSections["body1p2"] }}</p>
     </div>
     <div class="grid grid-cols-2 gap-4 mt-8">
       <img class="w-full rounded-lg" src="assets/home1.png" alt="Wejście do lokalu">
@@ -18,27 +33,24 @@
     </div>
     <div class="font-light text-gray-500 sm:text-lg dark:text-gray-400">
       <!-- <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">We didn't reinvent the wheel</h2> -->
-      <p class="mb-4">Nieustannie badamy potrzeby i oczekiwania klientów, optymalizujemy czas obsługi zamówień oraz powiększamy asortyment oferowanych usług i produktów, aby spełnić wszystkie wymagania każdego nabywcy.</p>
-      <p class="mb-4">Wśród naszych produktów są nie tylko części zamienne do popularnych marek aut - mamy też w ofercie szeroki asortyment akcesoriów samochodowych, opon, akumulatorów oraz olejów i płynów eksploatacyjnych, a także narzędzia niezbędne do samodzielnych napraw.</p>
-      <p class="mb-4">Naszym stałym klientom oferujemy korzystny system rabatowy, uzależniony od obrotów bieżących, stałe promocje oraz dogodne terminy płatności. Realizujemy dostawy zamówionych produktów w ciągu 24 godzin - własnym transportem lub za pośrednictwem sprawdzonych firm spedycyjnych.</p>
+      <p class="mb-4">{{ pageSections["body2p1"] }}</p>
+      <p class="mb-4">{{ pageSections["body2p2"] }}</p>
+      <p class="mb-4">{{ pageSections["body2p3"] }}</p>
     </div>
   </div>
 </section>
-<section class="bg-white dark:bg-gray-800">
+<!-- <section class="bg-white dark:bg-gray-800">
   <div class="grid grid-rows-2 gap-4 h-screen">
     <div class="row-span-1 col-span-full bg-blue-200 flex items-center justify-center p-4">
-      <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Oferta</h2>
+      <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Zapoznaj się z naszą ofertą!</h2>
     </div>
     <div class="grid grid-cols-3 gap-4 row-span-1 col-span-full">
       <div class="bg-green-200 flex items-center justify-center p-4">
-          części silnika
-          elementy chłodzenia silnika
-          elementy karoserii
-          elementy sprzęgła
-          elementy układu hamulcowego
+          
         </div>
       <div class="bg-green-300 flex items-center justify-center p-4">Column 2</div>
       <div class="bg-green-400 flex items-center justify-center p-4">Column 3</div>
     </div>
   </div>
-</section>
+</section> -->
+

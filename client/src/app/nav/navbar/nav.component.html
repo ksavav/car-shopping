@@ -67,7 +67,7 @@
           </button>
           @if (showSettings)
           {
-          <app-dropdown></app-dropdown>
+          <app-dropdown (showSettings)="hideSettingsMode($event)"></app-dropdown>
           }
         </div>
         <!-- Cart-->
