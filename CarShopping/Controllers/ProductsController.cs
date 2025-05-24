@@ -57,6 +57,24 @@ public class ProductsController(DataContext context) : BaseController
         if (product == null) return NotFound("Product not found");
         return Ok(product);
     }
+
+    [HttpGet("list/{productsIds}")]
+    public async Task<ActionResult<IEnumerable<Product>>> GetProductsListBasedOnProductsId(string productsIds)
+    {
+        var queryString = productsIds.Split("+");
+        var productsList = new List<Product>();
+
+        foreach (var p in queryString)
+        {
+            var product = await context.Products.SingleOrDefaultAsync(x => x.ProductId == p);
+            if (product != null)
+            {
+                productsList.Add(product);
+            }
+        }
+
+        return Ok(productsList);
+    }
     
     [Authorize(Policy = "RequireAdminRole")]
     [HttpPost("add")]
