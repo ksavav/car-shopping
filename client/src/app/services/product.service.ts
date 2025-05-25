@@ -46,9 +46,6 @@ export class ProductService {
     )
   }
   
-  /* TODO
-   * change thist to querry i guess
-   */
   getProduct(productId: string) {
     const product = [...this.productCache.values()]
       .reduce((arr, elem) => arr.concat(elem.result), [])
@@ -57,5 +54,18 @@ export class ProductService {
     if (product) return of(product)
     //console.log(member)
     return this.http.get<Product>(this.baseUrl + 'products/' + productId)
+  }
+
+  getProductsList(productsId: string[]) {
+    let products = ""
+    productsId.forEach(p => {
+      if (products == "") {
+        products = p
+      }
+      else {
+        products = products + "+" + p
+      }
+    });
+    return this.http.get<Product[]>(this.baseUrl + 'products/list/' + products)
   }
 }
