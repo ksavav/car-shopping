@@ -94,7 +94,7 @@ if __name__ == '__main__':
 
     urls = [
         ("http://194.181.108.250/clientcatalogue/qap-qap04--wtryskiwacze,25-4-20-1-0000000487.aspx", "Wtryskiwacze"),
-        ("http://194.181.108.250/clientcatalogue/qap-qap03--szczeki-hamulcowe,25-4-20-1-0000000486.aspx", "Szczęki Hamulcowe"),
+        ("http://194.181.108.250/clientcatalogue/qap-qap03--szczeki-hamulcowe,25-4-20-1-0000000486.aspx", "Wtryskiwacze"),
         ("http://194.181.108.250/clientcatalogue/qap-qap05--tarcze-hamulcowe,25-4-20-1-0000000488.aspx", "Tarcze Hamulcowe"),
         ("http://194.181.108.250/clientcatalogue/qap-qap06--klocki-hamulcowe,25-4-20-1-0000000489.aspx", "Klocki Hamulcowe"),
         ("http://194.181.108.250/clientcatalogue/qap-qap06a--klocki-hamulcowe--ciezarowe,25-4-20-1-0000001295.aspx", "Klocki Hamulcowe Ciężarowe"),
