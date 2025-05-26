@@ -25,9 +25,13 @@ public static class ApplicationServiceExtension
         });
         services.AddControllers();
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-        services.AddDbContext<DataContext>(opt =>
+        // services.AddDbContext<DataContext>(opt =>
+        // {
+        //     opt.UseSqlite(configuration.GetConnectionString("DefaultConnection"));
+        // });
+        services.AddEntityFrameworkNpgsql().AddDbContext<DataContext>(opt =>
         {
-            opt.UseSqlite(configuration.GetConnectionString("DefaultConnection"));
+            opt.UseNpgsql(configuration.GetConnectionString("PsqlConnection"));
         });
         services.AddScoped<ITokenService, TokenService>();
 
