@@ -1,6 +1,6 @@
 ﻿using CarShopping.Entities;
 
-namespace CarShopping.Services;
+namespace CarShopping.Interfaces;
 
 public interface ITokenService
 {

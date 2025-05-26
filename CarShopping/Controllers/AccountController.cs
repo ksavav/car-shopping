@@ -1,19 +1,19 @@
 ﻿using AutoMapper;
 using CarShopping.DTOs;
 using CarShopping.Entities;
-using CarShopping.Services;
+using CarShopping.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace CarShopping.Controllers;
 
-public class AccountController(UserManager<AppUser> userManager, IMapper mapper, ITokenService tokenService) : BaseController
+public class AccountController(UserManager<AppUser> userManager, IUserRepository userRepository, IMapper mapper, ITokenService tokenService) : BaseController
 {
     [HttpPost("login")]
     public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
     {
-        var user = await userManager.FindByEmailAsync(loginDto.Email);
+        var user = await userRepository.GetUserByEmail(loginDto.Email);
         if (user == null || user.Email == null) return Unauthorized("Email or password is incorrect");
         var results = await userManager.CheckPasswordAsync(user, loginDto.Password);
         if(!results) return Unauthorized("Email or password is incorrect");
@@ -30,7 +30,7 @@ public class AccountController(UserManager<AppUser> userManager, IMapper mapper,
     [HttpPost("register")]
     public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
     {
-        if (await UserExists(registerDto.Email)) return BadRequest();
+        if (await userRepository.UserExists(registerDto.Email)) return BadRequest();
         var user = mapper.Map<AppUser>(registerDto);
         user.Email = registerDto.Email.ToLower();
         user.UserName = registerDto.Email;
@@ -44,10 +44,5 @@ public class AccountController(UserManager<AppUser> userManager, IMapper mapper,
             Email = user.Email,
             Token = await tokenService.CreateToken(user)
         };
-    }
-    
-    private async Task<bool> UserExists(string email)
-    {
-        return await userManager.Users.AnyAsync(x => x.NormalizedEmail == email.ToLower());
     }
 }

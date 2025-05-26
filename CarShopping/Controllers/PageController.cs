@@ -1,5 +1,4 @@
-﻿using System.Security.Claims;
-using CarShopping.Data;
+﻿using CarShopping.Data;
 using CarShopping.DTOs;
 using CarShopping.Entities;
 using Microsoft.AspNetCore.Authorization;
