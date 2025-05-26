@@ -1,12 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿namespace CarShopping.Helpers;
 
-namespace CarShopping.Helpers;
-
-public class QueryParams
+public class SearchParams
 {
+    public required string SearchTerm { get; set; }
     public int MinPrice { get; set; } = 1;
     public int MaxPrice { get; set; } = 99999999;
     public string? Category { get; set; }

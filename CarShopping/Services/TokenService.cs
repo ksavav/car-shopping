@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using System.Text;
 using CarShopping.Entities;
+using CarShopping.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 

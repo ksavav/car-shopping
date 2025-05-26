@@ -14,7 +14,8 @@ public class DataContext(DbContextOptions options) : IdentityDbContext<AppUser, 
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-
+        builder.ApplyConfiguration(new ProductConfiguration());
+        
         builder.Entity<AppUser>()
             .HasMany(ur => ur.UserRoles)
             .WithOne(u => u.User)

@@ -1,39 +1,19 @@
 ﻿using CarShopping.Data;
 using CarShopping.Entities;
 using CarShopping.Helpers;
+using CarShopping.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace CarShopping.Controllers;
 
-public class ProductsController(DataContext context) : BaseController
+public class ProductsController(DataContext context, IProductRepository productRepository) : BaseController
 {
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Product>>> GetProducts([FromQuery]QueryParams queryParams)
     {
-        var query = context.Products.AsQueryable();
-
-        if (queryParams.Category != null)
-        {
-            query = query.Where(p => p.Category == queryParams.Category);
-        }
-        if (queryParams.Producer != null)
-        {
-            query = query.Where(p => p.Producer == queryParams.Producer);
-        }
-
-        query = query.Where(p =>
-            p.ActualPrice >= queryParams.minPrice &&
-            p.ActualPrice <= queryParams.maxPrice
-        );
-
-        query = queryParams.OrderBy switch
-        {
-            "descending" => query.OrderByDescending(p => p.ActualPrice),
-            "ascending" => query.OrderBy(p => p.ActualPrice),
-            _ => query
-        };
+        var query = await productRepository.GetProductsFromQueryAsync(queryParams);
 
         var skipNumber = (queryParams.PageNumber - 1) * queryParams.PageSize;
 
@@ -41,11 +21,30 @@ public class ProductsController(DataContext context) : BaseController
 
         return Ok(products);
     }
+
+    [HttpGet("search")]
+    public async Task<ActionResult<IEnumerable<Product>>> GetProductsSearch([FromQuery]SearchParams searchParams)
+    {
+        var searchTerm = searchParams.SearchTerm;
+        var products = context.Products
+            .Where(p =>
+                EF.Functions.ToTsVector("simple", p.Name + " " + p.ProductId + " " + p.Category + " " + p.Producer)
+                    .Matches(EF.Functions.PhraseToTsQuery("simple", searchTerm)) ||
+                EF.Functions.ILike(p.Name, $"%{searchTerm}%") ||
+                EF.Functions.ILike(p.Category, $"%{searchTerm}%") ||
+                EF.Functions.ILike(p.ProductId, $"%{searchTerm}%") ||
+                EF.Functions.ILike(p.Producer, $"%{searchTerm}%"));
+        
+        var skipNumber = (searchParams.PageNumber - 1) * searchParams.PageSize;
+        var productsList = await products.Skip(skipNumber).Take(searchParams.PageSize).ToListAsync();
+        
+        return Ok(productsList);
+    }
     
     [HttpGet("{productId}")]
     public async Task<ActionResult<Product>> GetProductByProductId(string productId)
     {
-        var product = await context.Products.SingleOrDefaultAsync(x => x.ProductId == productId);
+        var product = await productRepository.GetProductAsync(productId);
         if (product == null) return NotFound("Product not found");
         return Ok(product);
     }
@@ -66,7 +65,7 @@ public class ProductsController(DataContext context) : BaseController
 
         foreach (var p in queryString)
         {
-            var product = await context.Products.SingleOrDefaultAsync(x => x.ProductId == p);
+            var product = await productRepository.GetProductAsync(p);
             if (product != null)
             {
                 productsList.Add(product);
@@ -80,7 +79,7 @@ public class ProductsController(DataContext context) : BaseController
     [HttpPost("add")]
     public async Task<ActionResult<Product>> CreateProduct(Product product)
     {
-        if (await ProductExists(product.ProductCode)) return BadRequest("Product with such name already exists");
+        if (await productRepository.ProductExists(product.ProductCode)) return BadRequest("Product with such name already exists");
         context.Products.Add(product);
         await context.SaveChangesAsync();
         return Ok(product);
@@ -95,7 +94,7 @@ public class ProductsController(DataContext context) : BaseController
     [HttpPut("edit")]
     public async Task<ActionResult<Product>> UpdateProduct(Product product)
     {
-        var productToUpdate = await GetProduct(product.ProductCode);
+        var productToUpdate = await productRepository.GetProductAsync(product.ProductCode);
         if (productToUpdate == null) return BadRequest("Product with such does not exist");
 
         // _mapper.Map(productUpdateDto, productToUpdate);
@@ -109,7 +108,7 @@ public class ProductsController(DataContext context) : BaseController
     [HttpDelete("delete/{productId}")]
     public async Task<ActionResult<Product>> DeleteProduct(string productId)
     {
-        var productToDelete = await GetProduct(productId);
+        var productToDelete = await productRepository.GetProductAsync(productId);
         if (productToDelete == null) return BadRequest("Product with such does not exist");
 
         context.Products.Remove(productToDelete);
@@ -117,15 +116,5 @@ public class ProductsController(DataContext context) : BaseController
         return Ok(productToDelete); 
     }
     
-    private async Task<bool> ProductExists(string productId)
-    {
-        return await context.Products.AnyAsync(x => x.ProductId.ToLower() == productId.ToLower());
-    }
-
-    private async Task<Product?> GetProduct(string productId)
-    {
-        var product = await context.Products.SingleOrDefaultAsync(x => x.ProductId.ToLower() == productId.ToLower());
-        
-        return product;
-    }
+    
 }

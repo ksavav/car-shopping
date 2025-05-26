@@ -2,6 +2,7 @@
 using System.Text;
 using CarShopping.Data;
 using CarShopping.Entities;
+using CarShopping.Interfaces;
 using CarShopping.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -34,7 +35,8 @@ public static class ApplicationServiceExtension
             opt.UseNpgsql(configuration.GetConnectionString("PsqlConnection"));
         });
         services.AddScoped<ITokenService, TokenService>();
-
+        services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
         return services;
     }
 
