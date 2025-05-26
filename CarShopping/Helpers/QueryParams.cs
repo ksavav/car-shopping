@@ -11,7 +11,7 @@ namespace CarShopping.Helpers
         public int maxPrice { get; set; } = 99999999;
         public string? Category { get; set; }
         public string? Producer { get; set; }
-        public string OrderBy { get; set; } = "ascending";
+        public string? OrderBy { get; set; }
         public int PageNumber { get; set; } = 1;
         public int PageSize
         {

@@ -1,25 +1,108 @@
-<div class="flex flex-col min-h-screen p-4">
-  <!-- Top Section -->
-  <div class="flex flex-col md:flex-row gap-4 overflow-hidden">
-    <!-- Left Placeholder / Sidebar -->
-    <div class="hidden md:block w-48 p-4 overflow-y-auto "></div>
+<div class="flex dark:bg-gray-800 px-8 py-4" aria-label="Breadcrumb">
+  <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
+    <li class="inline-flex items-center">
+      <a href="/home" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
+        <svg class="w-3 h-3 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+          <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
+        </svg>
+        Strona główna
+      </a>
+    </li>
+    <li>
+      <div class="flex items-center">
+        <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+        </svg>
+        <a href="/catalog" class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">
+          Katalog
+        </a>
+      </div>
+    </li>
+    @if (categorySelected)
+    {
+    <li aria-current="page">
+      <div class="flex items-center">
+        <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+        </svg>
+        <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">
+          *Wynik wyszukiwania lub kategoria {{ categorySelected }}*
+        </span>
+      </div>
+    </li>
+    }
+  </ol>
+</div>
 
-    <!-- Top Bar -->
-    <div class="flex-1 bg-gray-200 rounded-lg p-6 overflow-y-auto text-xl ml-0 md:ml-60 lg:mr-44">
-      Kategorie
-    </div>
-  </div>
-
+<div class="flex flex-col dark:text-white dark:bg-gray-800 min-h-screen p-4">
   <!-- Main Area -->
-  <div class="flex flex-col md:flex-row flex-1 gap-4 overflow-hidden m-0 md:m-4">
+  <div class="flex flex-col md:flex-row gap-4 m-0 md:m-4 items-start">
     <!-- Sidebar -->
-    <div class="w-full md:w-60 bg-gray-200 rounded-lg p-4 overflow-y-auto mt-4 ml-0 lg:ml-40 mb-4 md:mb-4">
-      <a class="text-2xl">Filtry</a>
+    <div class="w-full md:w-60 border border-gray-800 dark:border-gray-500 shadow dark:bg-gray-800 rounded-lg p-4 mt-4 ml-0 lg:ml-40 mb-4">
+      @if (!categorySelected)
+      {
+      <div class="gap-4 mb-4">
+        <a class="text-2xl">
+          Kategorie        
+        </a>
+      </div>
+        <div class="px-4 py-1 hover:underline select-none" *ngFor="let c of categories">
+          <a (click)="getSome(c)">{{c}}</a>
+        </div>
+      }
+      @if (categorySelected) 
+      {
+      <div class="gap-4 mb-4">
+        <a class="text-2xl">
+          {{ categorySelected }}      
+        </a>
+      </div>
+      <div class="px-4 py-1 hover:underline select-none" *ngFor="let c of categories">
+        <a (click)="getSome(c)">Tu będą filtry</a>
+      </div>
+      }
     </div>
-
     <!-- Main Content -->
-    <div class="flex-1 bg-gray-200 rounded-lg p-6 overflow-y-auto text-xl m-0 md:m-4 mr-0 lg:mr-40">
-      Lista produktów
+    <div class="flex-1">
+      <div class="bg-gray-800 border border-gray-800 dark:border-gray-500 rounded-lg p-6 text-xl m-0 md:m-4 mr-0 lg:mr-40">
+        <a class="text-2xl">Lista Produktów</a>
+        <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-12 lg:max-w-7xl lg:px-8">
+           <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+            <a href="#" class="group" *ngFor="let p of displayedProducts">
+              @if (p.photo)
+              {
+                <img src="{{ p.photo }}" alt="" class="aspect-square w-full rounded-lg bg-gray-200 object-contain group-hover:opacity-75 xl:aspect-7/8">
+              }
+              @if (!p.photo)
+              {
+                <img src="assets/placeholder.svg" alt="" class="aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-7/8">
+              }
+              <!-- <div class="aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-7/8 items-center justify-center">
+                @if (p.photo)
+              {
+                <img src="{{ p.photo }}" alt="">
+              }
+              @if (!p.photo)
+              {
+                <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="123.000000pt" height="120.000000pt" viewBox="0 0 123.000000 120.000000" preserveAspectRatio="xMidYMid meet">
+                  <g transform="translate(0.000000,120.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
+                    <path d="M846 1013 c-47 -13 -534 -270 -566 -299 -20 -18 -49 -57 -66 -86 -26 -48 -29 -62 -29 -148 0 -86 3 -100 29 -148 59 -105 162 -166 282 -166 60 0 81 5 137 32 43 21 79 48 100 75 56 69 297 552 297 594 0 44 -33 105 -68 125 -31 18 -88 29 -116 21z m92 -56 c28 -13 52 -56 52 -90 0 -13 -10 -39 -23 -58 -48 -72 -154 -59 -185 23 -13 33 -12 41 4 75 31 63 88 82 152 50z m-204 -79 c-7 -45 31 -115 76 -139 19 -11 52 -19 72 -19 21 0 38 -2 38 -5 0 -3 -23 -51 -51 -107 l-51 -101 -22 65 c-42 125 -118 193 -251 223 -28 7 -24 10 75 60 58 30 108 54 112 54 4 1 4 -14 2 -31z m-114 -153 c200 -101 197 -392 -5 -491 -192 -93 -410 56 -393 270 13 154 143 264 296 250 29 -2 75 -15 102 -29z"/>
+                    <path d="M852 898 c-29 -29 -2 -72 40 -66 42 6 32 78 -11 78 -9 0 -22 -5 -29 -12z"/>
+                    <path d="M427 683 c-4 -3 -7 -17 -7 -29 0 -30 -13 -37 -45 -22 -22 10 -28 10 -36 -2 -4 -8 -20 -34 -34 -57 l-25 -42 27 -26 28 -26 -22 -19 c-28 -22 -28 -30 -4 -79 27 -51 47 -67 66 -51 21 18 43 5 47 -27 3 -27 5 -28 70 -31 l67 -3 9 33 c9 33 20 37 54 23 13 -5 24 4 48 41 35 56 37 75 10 92 -26 16 -25 29 3 52 l22 19 -29 56 c-25 48 -32 55 -50 50 -42 -13 -49 -10 -58 23 -9 32 -9 32 -72 32 -34 0 -66 -3 -69 -7z m93 -52 c0 -27 67 -66 86 -50 12 9 18 8 29 -7 19 -25 19 -40 0 -48 -22 -8 -20 -82 2 -95 15 -8 16 -12 4 -35 -11 -21 -17 -23 -33 -15 -25 13 -88 -24 -88 -52 0 -29 -54 -23 -58 7 -4 29 -56 58 -80 45 -16 -8 -22 -5 -33 15 -12 23 -11 27 4 35 23 14 24 84 0 98 -15 8 -15 13 -5 35 10 22 15 25 31 16 24 -12 81 16 81 41 0 22 9 29 37 29 16 0 23 -6 23 -19z"/>
+                    <path d="M477 554 c-11 -11 5 -34 24 -34 22 0 41 -32 33 -54 -10 -26 -55 -32 -71 -11 -7 11 -13 25 -13 32 0 17 -29 17 -36 -1 -7 -18 21 -72 41 -80 51 -19 108 8 121 58 7 28 -18 81 -41 90 -21 8 -50 8 -58 0z"/>
+                  </g>
+                </svg>
+              }
+              </div> -->
+              <h3 class="mt-4 text-sm text-gray-700 dark:text-gray-200">{{ p.name }}</h3>
+              <p class="mt-1 text-lg font-medium dark:text-gray-400 text-gray-900">{{ p.actualPrice }} zł</p>
+            </a>
+           </div>
+        </div>
+      </div>
+      <div class="text-right">
+        Tutatj wybór ile na strone, która strona etc
+      </div>
     </div>
   </div>
 </div>

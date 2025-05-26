@@ -32,7 +32,7 @@ public class ProductsController(DataContext context) : BaseController
         {
             "descending" => query.OrderByDescending(p => p.ActualPrice),
             "ascending" => query.OrderBy(p => p.ActualPrice),
-            _ => query.OrderBy(p => p.ActualPrice)
+            _ => query
         };
 
         var skipNumber = (queryParams.PageNumber - 1) * queryParams.PageSize;
