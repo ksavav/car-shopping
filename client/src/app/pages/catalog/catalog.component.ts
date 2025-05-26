@@ -16,7 +16,6 @@ export class CatalogComponent implements OnInit {
   categorySelected: string | undefined
   categories: string[] = [
     "Wtryskiwacze",
-    "Wtryskiwacze",
     "Tarcze Hamulcowe",
     "Klocki Hamulcowe",
     "Klocki Hamulcowe Ciężarowe",
@@ -29,10 +28,10 @@ export class CatalogComponent implements OnInit {
   constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
-    this.getSome("")
+    this.getSome()
   }
 
-  getSome(category: string) {
+  getSome(category: string = "") {
     var query = new ProductParams
     if (category) {
       this.categorySelected = category
