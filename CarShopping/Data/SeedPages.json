@@ -1,18 +1,33 @@
 ﻿[
   {
     "Page": "home",
-    "Section": "header",
-    "Content": "Lorem Ipsum"
+    "Section": "header1",
+    "Content": "Czym się zajmujemy?"
   },
   {
     "Page": "home",
-    "Section": "body1",
-    "Content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie a orci vel imperdiet. Aliquam dignissim quis augue et blandit. Morbi a turpis nec leo placerat commodo vel ut tellus. Sed ac suscipit ipsum. Pellentesque eleifend non neque nec egestas. Sed ac diam aliquet, cursus libero sit amet, placerat mi. Vestibulum mollis risus a porttitor consectetur. Mauris volutpat sagittis consequat. Quisque maximus sem in eros interdum, sed tempus urna ultrices. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla leo urna, condimentum id orci et, ullamcorper viverra felis. Morbi blandit ullamcorper urna, a dictum ligula aliquet id. Vestibulum maximus quam non elit euismod aliquet at tempus turpis. Duis interdum massa nulla, non aliquet augue dignissim ac."
+    "Section": "body1p1",
+    "Content": "ARMAPOL jest firmą handlową, działającą w branży motoryzacyjnej nieprzerwanie od 1991 roku. Jesteśmy interdyscyplinarnym zespołem kreatywnych ludzi, posiadających duże doświadczenie w imporcie i dystrybucji części samochodowych. Prowadzimy sprzedaż w oparciu o sprawdzonych zagranicznych i krajowych producentów i dostawców części samochodowych do pojazdów osobowych i dostawczych wszystkich marek. Posiadamy w naszej ofercie sprzedaży ponad 30.000 pozycji dostępnych “od ręki”."
   },
   {
     "Page": "home",
-    "Section": "body2",
-    "Content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla molestie a orci vel imperdiet. Aliquam dignissim quis augue et blandit. Morbi a turpis nec leo placerat commodo vel ut tellus. Sed ac suscipit ipsum. Pellentesque eleifend non neque nec egestas. Sed ac diam aliquet, cursus libero sit amet, placerat mi. Vestibulum mollis risus a porttitor consectetur. Mauris volutpat sagittis consequat. Quisque maximus sem in eros interdum, sed tempus urna ultrices. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla leo urna, condimentum id orci et, ullamcorper viverra felis. Morbi blandit ullamcorper urna, a dictum ligula aliquet id. Vestibulum maximus quam non elit euismod aliquet at tempus turpis. Duis interdum massa nulla, non aliquet augue dignissim ac."
+    "Section": "body1p2",
+    "Content": "Armapol jest wyłącznym dystrybutorem markowych części samochodowych QAP - Quality Auto Parts."
+  },
+  {
+    "Page": "home",
+    "Section": "body2p1",
+    "Content": "Nieustannie badamy potrzeby i oczekiwania klientów, optymalizujemy czas obsługi zamówień oraz powiększamy asortyment oferowanych usług i produktów, aby spełnić wszystkie wymagania każdego nabywcy."
+  },
+  {
+    "Page": "home",
+    "Section": "body2p2",
+    "Content": "Wśród naszych produktów są nie tylko części zamienne do popularnych marek aut - mamy też w ofercie szeroki asortyment akcesoriów samochodowych, opon, akumulatorów oraz olejów i płynów eksploatacyjnych, a także narzędzia niezbędne do samodzielnych napraw."
+  },
+  {
+    "Page": "home",
+    "Section": "body2p3",
+    "Content": "Naszym stałym klientom oferujemy korzystny system rabatowy, uzależniony od obrotów bieżących, stałe promocje oraz dogodne terminy płatności. Realizujemy dostawy zamówionych produktów w ciągu 24 godzin - własnym transportem lub za pośrednictwem sprawdzonych firm spedycyjnych.."
   },
   {
     "Page": "about",

@@ -1,10 +1,9 @@
 ﻿using NpgsqlTypes;
 
-namespace CarShopping.Entities;
+namespace CarShopping.DTOs;
 
-public class Product
+public class ProductDto
 {
-    public int Id { get; set; }
     public required string Name { get; set; }
     public required string ProductId { get; set; }
     public required string ProductCode { get; set; }
@@ -15,5 +14,4 @@ public class Product
     public required int Quantity { get; set; }
     public List<string> Substitutes { get; set; } = [];
     public string? Photo { get; set; }
-    public NpgsqlTsVector SearchVector { get; set; }
 }

@@ -7,6 +7,7 @@ import { getPaginatedResult, getPaginationHeaders } from '../utils/paginationHel
 import { ProductParams } from '../models/productParams';
 import { Product } from '../models/product';
 import { environment } from '../../env/environment.development';
+import { SearchParams } from '../models/searchParams';
 
 @Injectable({
   providedIn: 'root'
@@ -27,23 +28,58 @@ export class ProductService {
     })
   }
 
-  getProducts(ProductParams: ProductParams) {
-    const response = this.productCache.get(Object.values(ProductParams).join('-'))
+  getProducts(productParams: ProductParams) {
+    const response = this.productCache.get(Object.values(productParams).join('-'))
     if (response) return of(response)
 
-    let params = getPaginationHeaders(ProductParams.pageNumber, ProductParams.pageSize);
+    let params = getPaginationHeaders(productParams.pageNumber, productParams.pageSize);
 
-    params = params.append('category', ProductParams.category)
-    params = params.append('producer', ProductParams.producer)
-    params = params.append('minPrice', ProductParams.minPrice)
-    params = params.append('maxPrice', ProductParams.maxPrice)
+    params = params.append('category', productParams.category)
+    params = params.append('producer', productParams.producer)
+    params = params.append('minPrice', productParams.minPrice)
+    params = params.append('maxPrice', productParams.maxPrice)
 
     return getPaginatedResult<Product[]>(this.baseUrl + 'products', params, this.http).pipe(
       map(response => {
-        this.productCache.set(Object.values(ProductParams).join('-'), response)
+        this.productCache.set(Object.values(productParams).join('-'), response)
         return response
       })
     )
+  }
+
+  getProductsSearch(searchParams: SearchParams) {
+    const response = this.productCache.get(Object.values(searchParams).join('-'))
+    if (response) return of(response)
+
+    let params = getPaginationHeaders(searchParams.pageNumber, searchParams.pageSize);
+
+    params = params.append('category', searchParams.category)
+    params = params.append('producer', searchParams.producer)
+    params = params.append('minPrice', searchParams.minPrice)
+    params = params.append('maxPrice', searchParams.maxPrice)
+
+    return getPaginatedResult<Product[]>(this.baseUrl + 'products', params, this.http).pipe(
+      map(response => {
+        this.productCache.set(Object.values(searchParams).join('-'), response)
+        return response
+      })
+    )
+  }
+
+  getProductsSearchBar(searchTerm: string) {
+    const response = this.productCache.get(Object.values(SearchParams).join('-'))
+    if (response) return of(response)
+      
+    let searchParams = getPaginationHeaders(1, 5);
+    searchParams = searchParams.append("searchTerm", searchTerm)
+    
+    return this.http.get<Product[]>(this.baseUrl + 'products/search?' + searchParams)
+    // return getPaginatedResult<Product[]>(this.baseUrl + 'products/search', searchParams, this.http).pipe(
+    //   map(response => {
+    //     this.productCache.set(Object.values(ProductParams).join('-'), response)
+    //     return response
+    //   })
+    // )
   }
   
   getProduct(productId: string) {
