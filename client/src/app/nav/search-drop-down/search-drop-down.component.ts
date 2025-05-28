@@ -8,12 +8,8 @@ import { Product } from '../../models/product';
   templateUrl: './search-drop-down.component.html',
   styleUrl: './search-drop-down.component.scss'
 })
-export class SearchDropDownComponent implements OnInit {
+export class SearchDropDownComponent {
   @Input() searchedProducts: Product[] = []
-
-  ngOnInit(): void {
-    console.log(this.searchedProducts)
-  }
 
   giveImage(product: Product)
   {

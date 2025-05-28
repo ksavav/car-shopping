@@ -13,10 +13,6 @@
       </a>
 
       <!-- Search Bar -->
-      <!-- 
-      TODO
-       * Add live preview of searched items and 
-      -->
       <div class="absolute left-1/2 transform -translate-x-1/2 w-full max-w-md mx-4 md:order-2">
         <div class="relative hidden md:block">
           <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -40,8 +36,6 @@
         @if (searchQuery != '' && showSearchResults)
         {
           <app-search-drop-down [searchedProducts]="products"></app-search-drop-down>
-          
-          <!-- absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 dark:divide-gray-700 rounded-md shadow-lg ring-1 ring-black/5 focus:outline-hidden dark:bg-gray-800 -->
         }
         </div>
       </div>
@@ -51,9 +45,7 @@
         <!-- User -->
         <!-- 
         TODO:
-         * Add drop down to navigate to user features like account preview
-         * Add information with link if user is not logged in
-         * Add first and last name if user is logged in 
+         * make buttons work
         -->
         <div class="flex">
           <button (click)="showAccountSettings()" class="flex items-center gap-2 p-1 rounded-full"> <!--  routerLink="/login" -->
@@ -84,7 +76,6 @@
            * Dropdown for cart preview
            * Button to go to cart page 
           -->
-         
           <button type="button" class="p-1 rounded-full">
             <div class="t-0 absolute top-2 left-5">
               <p class="flex h-2 w-2 items-center justify-center rounded-full bg-red-500 p-2 text-xs text-white">
