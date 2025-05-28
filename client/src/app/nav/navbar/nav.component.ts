@@ -44,7 +44,7 @@ export class NavComponent implements OnInit, OnDestroy  {
 
     this.searchSubscription = this.searchSubject
       .pipe(
-        debounceTime(500) // 2 times per second = 500ms
+        debounceTime(500)
       )
       .subscribe(searchTerm => {
         if (searchTerm == '') return
