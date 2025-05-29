@@ -4,15 +4,16 @@ import {RegisterComponent} from './account/register/register.component';
 import {LoginComponent} from './account/login/login.component';
 import {HomeComponent} from './pages/home/home.component';
 import {AboutComponent} from './pages/about/about.component';
-import { ProductDetailsComponent } from './product-details/product-details.component';
+import { ProductDetailsComponent } from './pages/product-details/product-details.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
+  { path: 'about', component: AboutComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'catalog', component: CatalogComponent },
-  { path: 'about', component: AboutComponent },
+  { path: 'catalog/:category', component: CatalogComponent },
   { path: 'catalog/product/:id', component: ProductDetailsComponent },
   // { path: 'catalog/edit/:id', component:  },
   // { path: 'profile', component:  },

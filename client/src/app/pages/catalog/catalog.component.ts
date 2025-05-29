@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { ProductParams } from '../../models/productParams';
 import { Product } from '../../models/product';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-catalog',
@@ -13,7 +13,9 @@ import { RouterModule } from '@angular/router';
   styleUrl: './catalog.component.scss'
 })
 export class CatalogComponent implements OnInit {
-  categorySelected: string | undefined
+  public productService = inject(ProductService)
+  private route = inject(ActivatedRoute)
+  categorySelected = this.productService.selectedCategory()
   categories: string[] = [
     "Wtryskiwacze",
     "Tarcze Hamulcowe",
@@ -25,23 +27,34 @@ export class CatalogComponent implements OnInit {
     "Amortyzatory"
   ]
   displayedProducts: Product[] = []
-  constructor(private productService: ProductService) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.getSome()
+    const category = this.route.snapshot.paramMap.get('category')
+    if (category) {
+      this.getSome(category)
+    } else {
+      this.getSome()
+    }
   }
 
   getSome(category: string = "") {
     var query = new ProductParams
-    if (category) {
-      this.categorySelected = category
+    if (this.productService.selectedCategory() && category === "") {
+      query.category = this.productService.selectedCategory()
     }
-    query.category = category
+    else if (category) {
+      this.productService.selectedCategory.set(category)
+      query.category = this.productService.selectedCategory()
+    }
+    else {
+      query.category = ""
+    }
     query.minPrice = 30
     this.productService.getProducts(query).subscribe({
       next: (data: any) => {
         this.displayedProducts = data["result"]
-        console.log(this.displayedProducts)
+        // console.log(this.displayedProducts)
       }
     })
   }

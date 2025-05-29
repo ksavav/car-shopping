@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { AccountService } from './account.service';
-import { map, of, take } from 'rxjs';
+import { map, of, Subject, take } from 'rxjs';
 import { User } from '../models/user';
 import { getPaginatedResult, getPaginationHeaders } from '../utils/paginationHelper';
 import { ProductParams } from '../models/productParams';
@@ -13,20 +13,16 @@ import { SearchParams } from '../models/searchParams';
   providedIn: 'root'
 })
 export class ProductService {
+  private http = inject(HttpClient)
+  private accountService = inject(AccountService)
   baseUrl = environment.apiUrl
-  user: User | undefined
   productCache = new Map();
   productParams: ProductParams | undefined
+  user = this.accountService.currentUser()
+  selectedCategory = signal<string>("")
 
-  constructor(private http: HttpClient, private accountService: AccountService) { 
-    this.accountService.currentUser$.pipe(take(1)).subscribe({
-      next: user => {
-        if (user) {
-          this.user = user
-        }
-      }
-    })
-  }
+  constructor() { }
+
 
   getProducts(productParams: ProductParams) {
     const response = this.productCache.get(Object.values(productParams).join('-'))
