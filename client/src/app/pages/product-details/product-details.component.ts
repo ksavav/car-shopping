@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from '../services/product.service';
-import { Product } from '../models/product';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ProductService } from '../../services/product.service';
+import { Product } from '../../models/product';
 
 @Component({
   selector: 'app-product-details',
@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ProductDetailsComponent implements OnInit {
   product: Product | undefined
-  constructor(private productService: ProductService, private route: ActivatedRoute) { }
+  constructor(private productService: ProductService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.loadProduct()
@@ -20,7 +20,7 @@ export class ProductDetailsComponent implements OnInit {
 
   loadProduct(): void {
     const productId = this.route.snapshot.paramMap.get('id')
-    console.log(productId)
+    // console.log(productId)
     if (!productId) return
     this.productService.getProduct(productId).subscribe({
       next: (data: any) => {
@@ -33,6 +33,13 @@ export class ProductDetailsComponent implements OnInit {
     if (!this.product) return "";
     if (this.product.photo) return this.product.photo
     else return "assets/placeholder.svg"
+  }
+
+  backToCatalog() {
+    if (this.product) {
+      this.productService.selectedCategory.set(this.product?.category)
+    }
+    this.router.navigateByUrl('/catalog')
   }
 }
 

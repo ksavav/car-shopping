@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { environment } from '../../env/environment.development';
 import { async, BehaviorSubject, map } from 'rxjs';
 import { User } from '../models/user';
@@ -9,8 +9,9 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AccountService {
   baseUrl = environment.apiUrl;
-  private currentUserSource = new BehaviorSubject<User | null>(null);
-  currentUser$ = this.currentUserSource.asObservable();
+  // private currentUserSource = new BehaviorSubject<User | null>(null);
+  // currentUser$ = this.currentUserSource.asObservable();
+  currentUser = signal<User | null>(null)
 
   constructor(private http: HttpClient) { }
 
@@ -37,11 +38,11 @@ export class AccountService {
 
   setCurrentUser(user: User){
     localStorage.setItem('user', JSON.stringify(user));
-    this.currentUserSource.next(user);
+    this.currentUser.set(user);
   }
 
   logout(){
     localStorage.removeItem('user')
-    this.currentUserSource.next(null);
+    this.currentUser.set(null);
   }
 }

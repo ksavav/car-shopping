@@ -18,7 +18,7 @@
         </a>
       </div>
     </li>
-    @if (categorySelected)
+    @if (productService.selectedCategory())
     {
     <li aria-current="page">
       <div class="flex items-center">
@@ -26,7 +26,7 @@
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
         </svg>
         <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">
-          *Wynik wyszukiwania lub kategoria {{ categorySelected }}*
+          *Wynik wyszukiwania lub kategoria {{ productService.selectedCategory() }}*
         </span>
       </div>
     </li>
@@ -39,7 +39,7 @@
   <div class="flex flex-col md:flex-row gap-4 m-0 md:m-4 items-start">
     <!-- Sidebar -->
     <div class="w-full md:w-60 border border-gray-800 dark:border-gray-500 shadow dark:bg-gray-800 rounded-lg p-4 mt-4 ml-0 lg:ml-40 mb-4">
-      @if (!categorySelected)
+      @if (!productService.selectedCategory())
       {
       <div class="gap-4 mb-4">
         <a class="text-2xl">
@@ -47,14 +47,14 @@
         </a>
       </div>
         <div class="px-4 py-1 hover:underline select-none" *ngFor="let c of categories">
-          <a (click)="getSome(c)">{{c}}</a>
+          <a href="/catalog/{{c}}">{{c}}</a>
         </div>
       }
-      @if (categorySelected) 
+      @if (productService.selectedCategory()) 
       {
       <div class="gap-4 mb-4">
         <a class="text-2xl">
-          {{ categorySelected }}      
+          {{ productService.selectedCategory() }}      
         </a>
       </div>
       <div class="px-4 py-1 hover:underline select-none" *ngFor="let c of categories">
