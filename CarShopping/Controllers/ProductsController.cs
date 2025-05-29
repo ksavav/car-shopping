@@ -40,25 +40,6 @@ public class ProductsController(DataContext context, IProductRepository productR
         var productsDto = mapper.Map<List<Product>, List<ProductDto>>(productsList);
         return Ok(productsDto);
     }
-
-    [HttpGet("search")]
-    public async Task<ActionResult<IEnumerable<Product>>> GetProductsSearch([FromQuery]SearchParams searchParams)
-    {
-        var searchTerm = searchParams.SearchTerm;
-        var products = context.Products
-            .Where(p =>
-                EF.Functions.ToTsVector("simple", p.Name + " " + p.ProductId + " " + p.Category + " " + p.Producer)
-                    .Matches(EF.Functions.PhraseToTsQuery("simple", searchTerm)) ||
-                EF.Functions.ILike(p.Name, $"%{searchTerm}%") ||
-                EF.Functions.ILike(p.Category, $"%{searchTerm}%") ||
-                EF.Functions.ILike(p.ProductId, $"%{searchTerm}%") ||
-                EF.Functions.ILike(p.Producer, $"%{searchTerm}%"));
-        
-        var skipNumber = (searchParams.PageNumber - 1) * searchParams.PageSize;
-        var productsList = await products.Skip(skipNumber).Take(searchParams.PageSize).ToListAsync();
-        
-        return Ok(productsList);
-    }
     
     [HttpGet("{productId}")]
     public async Task<ActionResult<Product>> GetProductByProductId(string productId)
